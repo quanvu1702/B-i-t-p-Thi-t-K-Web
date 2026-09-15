@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/ViewComponents/">
+    <File Path="LoaiSpMenuViewComponent.cs" />
+  </Folder>
+  <Folder Name="/ViewComponents/NewFolder1/" />
+  <Project Path="Ogani-master/Ogani-master.csproj" />
+</Solution>
