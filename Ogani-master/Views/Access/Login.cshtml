@@ -1,0 +1,72 @@
+﻿@model Ogani_master.ViewModels.LoginViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1" />
+
+    <title>Đăng nhập</title>
+
+    <link rel="stylesheet"
+          href="~/LayoutAdmin/assets/vendors/css/vendor.bundle.base.css" />
+
+    <link rel="stylesheet"
+          href="~/LayoutAdmin/assets/css/style.css" />
+</head>
+<body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            <div class="content-wrapper d-flex align-items-center auth">
+                <div class="row flex-grow">
+                    <div class="col-lg-4 mx-auto">
+                        <div class="auth-form-light text-left p-5">
+                            <h3>Đăng nhập</h3>
+                            <p>Nhập tài khoản của bạn để tiếp tục.</p>
+
+                            <form asp-controller="Access"
+                                  asp-action="Login"
+                                  method="post">
+
+                                <div asp-validation-summary="All"
+                                     class="text-danger"></div>
+
+                                <div class="form-group">
+                                    <label asp-for="Username">
+                                        Tên đăng nhập
+                                    </label>
+
+                                    <input asp-for="Username"
+                                           class="form-control"
+                                           autocomplete="username" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="Password">
+                                        Mật khẩu
+                                    </label>
+
+                                    <input asp-for="Password"
+                                           type="password"
+                                           class="form-control"
+                                           autocomplete="current-password" />
+                                </div>
+
+                                <button type="submit"
+                                        class="btn btn-gradient-primary w-100">
+                                    Đăng nhập
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

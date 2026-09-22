@@ -8,7 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\LayoutOgani\" />
+    <Folder Include="wwwroot\LayoutAdmin\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Ogani_master.Modelss.TDanhMucSp>
+
+@{
+    ViewData["Title"] = ViewBag.TenLoai;
+    Layout = "~/Views/Shared/_LayoutOgani.cshtml";
+}
+
+<div class="col-12 mb-4">
+    <h3>@ViewBag.TenLoai</h3>
+    <a asp-controller="Home" asp-action="Index">
+        Xem tất cả sản phẩm
+    </a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="col-12">
+        <p>Loại này chưa có sản phẩm.</p>
+    </div>
+}
+
+@foreach (var item in Model)
+{
+    <div class="col-lg-3 col-md-4 col-sm-6 mix">
+        <div class="featured__item">
+            <div>
+                <img src="@Url.Content("~/Images/" + item.AnhDaiDien)"
+                     alt="@item.TenSp"
+                     style="width:100%; height:270px; object-fit:contain;" />
+            </div>
+
+            <div class="featured__item__text">
+                <h6>@item.TenSp</h6>
+                <h5>@(item.GiaNhoNhat?.ToString("N0")) đ</h5>
+            </div>
+        </div>
+    </div>
+}

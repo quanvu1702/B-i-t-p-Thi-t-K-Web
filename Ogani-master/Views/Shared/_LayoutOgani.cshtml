@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
 <!DOCTYPE html>
 <html lang="zxx">
 
@@ -120,7 +120,30 @@
                                 </ul>
                             </div>
                             <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
+                                @if (!string.IsNullOrEmpty(Context.Session.GetString("Username")))
+                                {
+                                    <span>
+                                        Xin chào, @Context.Session.GetString("Username")
+                                    </span>
+
+                                    <form asp-area=""
+                                          asp-controller="Access"
+                                          asp-action="Logout"
+                                          method="post"
+                                          style="display:inline-block; margin-left:10px;">
+                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                            Đăng xuất
+                                        </button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <a asp-area=""
+                                       asp-controller="Access"
+                                       asp-action="Login">
+                                        <i class="fa fa-user"></i> Đăng nhập
+                                    </a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -273,9 +296,14 @@
                     </div>
                 </div>
             </div>
-            <<div class="row featured__filter">
+            <<div id="danh-sach-san-pham"
+                 class="row"
+                 data-api-url="@Url.Content("~/api/products")"
+                 data-image-url="@Url.Content("~/Images/")"
+                 data-detail-url="@Url.Action("ChiTietSanPham", "Home", new { area = "" })"
+                 data-login-url="@Url.Action("Login", "Access", new { area = "" })">
                 @RenderBody()
-            </div>
+    </div>
     </section>
     <!-- Featured Section End -->
     <!-- Banner Begin -->
@@ -623,8 +651,8 @@
     <script src="../LayoutOgani/js/mixitup.min.js"></script>
     <script src="../LayoutOgani/js/owl.carousel.min.js"></script>
     <script src="../LayoutOgani/js/main.js"></script>
-
-
+    <script src="~/san-pham-ajax.js"
+        asp-append-version="true"></script>
 
 </body>
 

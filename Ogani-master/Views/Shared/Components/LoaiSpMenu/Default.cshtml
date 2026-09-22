@@ -1,8 +1,25 @@
 ﻿@model IEnumerable<Ogani_master.Modelss.TLoaiSp>
 
+<li>
+    <a asp-area=""
+       asp-controller="Home"
+       asp-action="Index"
+       class="js-loai-san-pham"
+       data-ma-loai="">
+        Tất cả sản phẩm
+    </a>
+</li>
+
 @foreach (var item in Model)
 {
     <li>
-        <a href="#">@item.Loai</a>
+        <a asp-area=""
+           asp-controller="Home"
+           asp-action="SanPhamTheoLoai"
+           asp-route-maLoai="@item.MaLoai"
+           class="js-loai-san-pham"
+           data-ma-loai="@item.MaLoai">
+            @item.Loai
+        </a>
     </li>
 }
