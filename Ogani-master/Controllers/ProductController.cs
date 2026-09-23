@@ -20,7 +20,7 @@ namespace Ogani_master.Controllers
         [HttpGet]
         public IActionResult GetProducts(string? maLoai)
         {
-            if (HttpContext.Session.GetString("Username") == null)
+            if (HttpContext.Session.GetString("UserName") == null)
             {
                 return Unauthorized();
             }

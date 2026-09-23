@@ -2,12 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using Ogani_master.Models;
 using System.Diagnostics;
 using Ogani_master.Filters;
-
+using Ogani_master.Models.Authentication;
 namespace Ogani_master.Controllers
 {
     public class HomeController : Controller
     {
-        [SessionLogin]
+        [Authentication]
         public IActionResult Index()
         {
             using var db = new Ogani_master.Modelss.QlbanVaLiContext();
@@ -18,7 +18,7 @@ namespace Ogani_master.Controllers
 
             return View(sanPham);
         }
-        [SessionLogin]
+        [Authentication]
         public IActionResult SanPhamTheoLoai(string? maLoai)
         {
             if (string.IsNullOrWhiteSpace(maLoai))
@@ -45,7 +45,7 @@ namespace Ogani_master.Controllers
 
             return View(sanPham);
         }
-        [SessionLogin]  
+        [Authentication]  
         public IActionResult ChiTietSanPham(string? maSp)
         {
             if (string.IsNullOrWhiteSpace(maSp))

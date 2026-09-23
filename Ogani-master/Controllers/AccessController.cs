@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Ogani_master.Modelss;
-using Ogani_master.ViewModels;
 
 namespace Ogani_master.Controllers
 {
@@ -18,49 +17,62 @@ namespace Ogani_master.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            if (HttpContext.Session.GetString("Username") != null)
+            if (HttpContext.Session.GetString("UserName") != null)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            return View(new LoginViewModel());
+            return View(new TUser());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(LoginViewModel model)
+        public IActionResult Login(
+            [Bind("Username,Password")] TUser user)
         {
-            if (!ModelState.IsValid)
+            if (string.IsNullOrWhiteSpace(user.Username)
+                || string.IsNullOrEmpty(user.Password))
             {
-                return View(model);
+                ModelState.AddModelError(
+                    "",
+                    "Vui lòng nhập tên đăng nhập và mật khẩu."
+                );
+
+                return View(user);
             }
 
-            string username = model.Username.Trim();
+            string username = user.Username.Trim();
 
-            var user = _db.TUsers
+            var account = _db.TUsers
                 .AsNoTracking()
                 .FirstOrDefault(x => x.Username == username);
 
-            // Dành cho database bài tập lưu mật khẩu văn bản thường.
-            if (user == null ||
-                !string.Equals(
-                    user.Password.TrimEnd(' '),
-                    model.Password,
-                    StringComparison.Ordinal))
+            // Phù hợp với mật khẩu văn bản trong database bài tập.
+            bool dungMatKhau = account != null
+                && string.Equals(
+                    account.Password.TrimEnd(' '),
+                    user.Password,
+                    StringComparison.Ordinal
+                );
+
+            if (!dungMatKhau)
             {
                 ModelState.AddModelError(
                     "",
                     "Tên đăng nhập hoặc mật khẩu không đúng."
                 );
 
-                model.Password = "";
-                ModelState.Remove(nameof(model.Password));
+                user.Password = "";
+                ModelState.Remove(nameof(user.Password));
 
-                return View(model);
+                return View(user);
             }
 
             HttpContext.Session.Clear();
-            HttpContext.Session.SetString("Username", user.Username);
+            HttpContext.Session.SetString(
+                "UserName",
+                account!.Username.TrimEnd(' ')
+            );
 
             return RedirectToAction("Index", "Home");
         }

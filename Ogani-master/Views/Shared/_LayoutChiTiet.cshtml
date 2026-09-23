@@ -54,10 +54,10 @@
                 </ul>
             </div>
             <div class="header__top__right__auth">
-                @if (!string.IsNullOrEmpty(Context.Session.GetString("Username")))
+                @if (!string.IsNullOrEmpty(Context.Session.GetString("UserName")))
                 {
                     <span>
-                        Xin chào, @Context.Session.GetString("Username")
+                        Xin chào, @Context.Session.GetString("UserName")
                     </span>
 
                     <form asp-area=""
